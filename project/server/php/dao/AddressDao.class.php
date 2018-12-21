@@ -7,6 +7,8 @@ class AddressDao {
 	}
 
 	public function updateGeolocation($address) {
+		// Atualiza os campos lat e lng nos endereços que corresponda precisamente
+		// as informações contidas no objeto address
 		$data = [
 			"lat" => $address->getGeolocation()->getLat(),
 			"lng" => $address->getGeolocation()->getLng(),
@@ -25,6 +27,8 @@ class AddressDao {
 	}
 
 	public function setAddressAsNotFound($address) {
+		// Atualiza o campo geolocalizacao_encontravel nos endereços que corresponda precisamente
+		// as informações contidas no objeto address
 		$data = [ "geolocalizacao_encontravel" => 0 ];
 
 		$clausule = "where rua = '{$address->getStreetName()}'"
@@ -39,14 +43,22 @@ class AddressDao {
 		return $this->crud->update("consumidores2", $data, $clausule);
 	}
 
-	public function getAddressesWithoutGeolocation() {
+	public function getAddressesWithoutGeolocation($limit) {
+		// Campos a serem buscados
 		$fields = ["rua", "nr", "complemento", "bairro", "cidade", "uf", "cep", "lat", "lng"];
-		$clausule = "where lat is null and lng is null and geolocalizacao_encontravel = 1 LIMIT 0 , 200";		
+
+		/*Busca endereços que ainda estão sem lat e lng, 
+		e não falharam ao tentar obter essas informações anteriormente.
+		Serão retornados os primeiros $limit endereços encotrados
+		*/
+		$clausule = "where lat is null and lng is null and geolocalizacao_encontravel = 1 LIMIT {$limit}";	
+
 		$results = $this->crud->read("consumidores2", $clausule, $fields);
 
 		$addresses = [];
 
-		foreach ($results as $address) {			
+		foreach ($results as $address) {
+			// Cria um objeto Address a partir dos dados do array			
 			$addresses[] = AddressFactory::createInstance($address);
 		}
 

@@ -27,14 +27,6 @@ class AddressDao {
 			})	
 	}
 
-	getAddressesWithoutGeolocation() {
-		return this._getAddresses( "../server/php/getAllAddressesWithoutGeolocation.php" )
-			.catch( err => {
-				console.log( err )
-				throw new Error( 'Não foi possível obter os endereços sem geolocalização' )
-			})	
-	}
-
 	_getAddresses( url, data ) {
 		return new Promise( ( resolve, reject ) => {
 			this._http
@@ -43,17 +35,6 @@ class AddressDao {
 					response.map( AddressFactory.createInstance ) 
 					) 
 				)									
-		})
-	}
-
-	updateGeolocation( data ) {
-		return new Promise( ( resolve, reject ) => {
-			this._http
-				.post( "../server/php/updateGeolocations.php", data )
-				.catch( err => {
-					console.log( err )
-					throw new Error( 'Não foi possível atualizar a geolocalização dos endereços' )
-				})
 		})
 	}
 

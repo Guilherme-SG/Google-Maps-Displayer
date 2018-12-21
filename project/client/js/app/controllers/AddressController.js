@@ -1,5 +1,8 @@
+/** Address Controller. */
 class AddressController {
-
+	/**
+	 * @constructor
+	*/
 	constructor() {
 		let $ = document.querySelector.bind( document )
 
@@ -14,7 +17,7 @@ class AddressController {
 		this._googleMap = null
 
 		this._addressList = new AddressList()
-		this._addressView = new AddressView( $( "#addressView" ) )
+		this._addressTableView = new AddressTableView( $( "#addressTableView" ) )
 		this._addressDAO = new AddressDao()
 
 		this._paginationView = new PaginationView( $( "#paginationView" ) )
@@ -23,9 +26,6 @@ class AddressController {
 
 		this._paginationSelector = $( "#paginationSelector" )
 		this._addressPerPage = Number( this._paginationSelector.value )
-
-
-		this._googleApiService = new GoogleAPIService()
 	}
 
 	changeFilter() {
@@ -95,7 +95,7 @@ class AddressController {
 	pagination( index ) {	
 		let paginationAddressList = new AddressList()
 		this._pagination.getPage( index ).forEach( address => paginationAddressList.add( address ) )
-		this._addressView.update( paginationAddressList )
+		this._addressTableView.update( paginationAddressList )
 
 		let totalPages = this._pagination.pages.length
 

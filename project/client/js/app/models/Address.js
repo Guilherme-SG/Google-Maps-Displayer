@@ -1,5 +1,17 @@
+/** Class representing a address.*/
 class Address {
-
+	/**
+	 * Create a address.
+	 * @constructor
+	 * @param {string} streetName - The street name.
+	 * @param {number} streetNumber - The street number.
+	 * @param {string} complement - The compelemnt.
+	 * @param {string} borough - The borough.
+	 * @param {string} city - The city.
+	 * @param {string} uf - The federative unit .
+	 * @param {string} cep - The zip code.
+	 * @param {Geolocation} geolocation - object representing the Geolocation.
+	*/
 	constructor( streetName,
 		streetNumber,
 		complement,
@@ -18,6 +30,7 @@ class Address {
 		this._cep = cep
 		this._geolocation = geolocation
 
+		// Impede que as propriedades do objeto sejam alteradas
 		Object.freeze( this )
 	}
 

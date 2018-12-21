@@ -1,6 +1,6 @@
 class HttpService {
 
-	get( url, data ) {
+	get( url ) {
 		return fetch( url, {
 			headers: { 'Content-type': 'application/json' },
 			method: 'get'

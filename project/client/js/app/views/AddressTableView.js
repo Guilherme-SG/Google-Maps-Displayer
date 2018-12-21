@@ -1,4 +1,4 @@
-class AddressView extends View {
+class AddressTableView extends View {
 
 	constructor( element ) {
 		super( element )

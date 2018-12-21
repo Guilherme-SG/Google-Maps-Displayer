@@ -1,5 +1,6 @@
 <?php 
 class AddressFactory {
+	// Cria uma instancia de Address a partir dos dados vindo do banco
 	public static function createInstance( $data ) {
 		return new Address( $data["rua"],
 			$data["nr"],
